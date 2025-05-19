@@ -2,7 +2,7 @@ import os
 import glob
 
 def main():
-    folder = os.path.abspath("../FrameCreation/Frames")
+    folder = os.path.abspath("../FrameCreation/RawFrames")
     files = glob.glob(os.path.join(folder, "frame_*.jpg"))
     if not files:
         print("Aucun fichier à supprimer.")

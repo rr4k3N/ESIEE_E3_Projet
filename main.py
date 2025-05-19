@@ -13,6 +13,20 @@ gst_str = (
 frames_folder = "./FrameCreation/RawFrames"
 selected_folder = "./FrameCreation/SelectedFrames"
 
-processor = VideoCaptureProcessor(gst_str, frames_folder, selected_folder, frame_rate=30, selection_interval=1)
-processor.process(duration_sec=10)
+# Paramètres personnalisables
+frame_rate = 30              # Nombre de frames par seconde
+selection_interval = 1       # Intervalle de sélection (en secondes)
+n_best_frames = 2            # Nombre de meilleures frames à garder à chaque intervalle
+capture_duration = 10        # Durée totale de capture (en secondes)
 
+# Lancement du processeur vidéo avec sélection des meilleures frames
+processor = VideoCaptureProcessor(
+    gst_pipeline=gst_str,
+    frames_folder=frames_folder,
+    selected_folder=selected_folder,
+    frame_rate=frame_rate,
+    selection_interval=selection_interval,
+    n_best=n_best_frames
+)
+
+processor.process(duration_sec=capture_duration)

@@ -4,13 +4,14 @@ import os
 from .frame_selector import FrameSelector
 
 class VideoCaptureProcessor:
-    def __init__(self, gst_pipeline, frames_folder, selected_folder, frame_rate=30, selection_interval=1):
+    def __init__(self, gst_pipeline, frames_folder, selected_folder, frame_rate=30, selection_interval=1, n_best=2):
         self.gst_pipeline = gst_pipeline
         self.frames_folder = frames_folder
         self.selected_folder = selected_folder
         self.frame_rate = frame_rate
         self.selection_interval = selection_interval
-        self.frame_selector = FrameSelector(frames_folder, selected_folder, selection_interval)
+        self.n_best = n_best
+        self.frame_selector = FrameSelector(frames_folder, selected_folder, selection_interval, n_best)
         self.cap = cv2.VideoCapture(gst_pipeline, cv2.CAP_GSTREAMER)
         if not self.cap.isOpened():
             raise RuntimeError("Erreur : impossible d'ouvrir la caméra.")
@@ -27,8 +28,8 @@ class VideoCaptureProcessor:
             os.makedirs(self.selected_folder)
 
         start_time = time.time()
-        last_selection = start_time
         frame_id = 0
+        last_selection_time = start_time
 
         print("Capture démarrée...")
         while True:
@@ -41,14 +42,17 @@ class VideoCaptureProcessor:
             frame_id += 1
 
             now = time.time()
-            if now - last_selection >= self.selection_interval:
-                self.frame_selector.select_best_frame()
-                last_selection = now
+            elapsed = now - last_selection_time
+            if elapsed >= self.selection_interval:
+                print(f"--- Sélection des meilleures frames après {elapsed:.2f} secondes ---")
+                self.frame_selector.select_best_frames()
+                last_selection_time = now
 
-            # Arrêter après la durée demandée
             if now - start_time > duration_sec:
+                # Sélection finale sur les frames restantes
+                print("--- Sélection finale avant arrêt ---")
+                self.frame_selector.select_best_frames()
                 break
 
         self.cap.release()
         print("Capture terminée.")
-
