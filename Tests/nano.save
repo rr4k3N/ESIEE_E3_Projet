@@ -1,0 +1,13 @@
+():
+    folder = os.path.abspath("../Fram        print("Aucun fichier à supprimer.")
+        return
+
+    for f in files:
+        os.remove(f)
+        print(f"Supprimé : {f}")
+
+    print(f"{len(files)} fichiers supprimés.")
+
+if __name__ == "__main__":
+    main()
+

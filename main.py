@@ -1,0 +1,18 @@
+from FrameCreation.video_capture_processor import VideoCaptureProcessor
+from FrameCreation.frame_selector import FrameSelector
+
+# Pipeline GStreamer (modifiable résolution/framerate)
+gst_str = (
+    "v4l2src device=/dev/video0 ! "
+    "video/x-raw, width=640, height=480, framerate=30/1 ! "
+    "nvvidconv ! video/x-raw(memory:NVMM), format=I420 ! "
+    "nvvidconv ! video/x-raw, format=BGRx ! "
+    "videoconvert ! video/x-raw, format=BGR ! appsink"
+)
+
+frames_folder = "./FrameCreation/RawFrames"
+selected_folder = "./FrameCreation/SelectedFrames"
+
+processor = VideoCaptureProcessor(gst_str, frames_folder, selected_folder, frame_rate=30, selection_interval=1)
+processor.process(duration_sec=10)
+
