@@ -1,0 +1,128 @@
+<body>
+
+    <!-- Titre du site -->
+    <header>
+        <h1>Plan D - Visualisation 3D</h1>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </header>
+
+    <!-- Partie centrale avec contenu visuel -->
+    <main class="container">
+                
+        <!-- Affichage du plan 3D -->
+        <section class="card">
+            <h2>Affichage du plan 3D</h2>
+            <img src="https://via.placeholder.com/800x400?text=Plan+3D" alt="Affichage du plan 3D">
+        </section>
+        
+          <div class="spacer"></div>
+
+
+
+        <!-- Affichage du flux vidéo -->
+
+            <!-- Affichage du flux vidéo avec joystick à droite -->
+        <section class="card flux-row">
+            <h2>Flux Vidéo</h2>
+            
+            <div class="flux-container">
+                
+                <!-- Bloc Vidéo à gauche -->
+                <div class="flux-video">
+                <img src="{{ url_for('video') }}" alt="Flux vidéo">
+                </div>
+
+                <!-- Joystick à droite -->
+                <div class="flux-controle">
+                <div class="joystick">
+                    <div class="row">
+                    <button onclick="sendCommand('up')">⬆️</button>
+                    </div>
+                    <div class="row">
+                    <button onclick="sendCommand('left')">⬅️</button>
+                    <button onclick="sendCommand('right')">➡️</button>
+                    </div>
+                    <div class="row">
+                    <button onclick="sendCommand('down')">⬇️</button>
+                    </div>
+                </div>
+                <p>Joystick de contrôle du robot</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Tous les boutons : import/export/traitement + infos -->
+    <div class="button-bar">
+        <button>Importer</button>
+        <button>Exporter</button>
+        <button>Lancer traitement</button>
+    </div>
+
+    <div class="footer-buttons">
+        <button onclick="openModal('modalProjet')">Projet</button>
+        <button onclick="openModal('modalFonctionnement')">Comment ça marche ?</button>
+    </div>
+
+    <!-- Modales (popup d'infos) -->
+    <div id="modalProjet" class="modal" onclick="closeModal(event, 'modalProjet')">
+        <div class="modal-content">
+            <span class="close" onclick="hide('modalProjet')">&times;</span>
+            <h3>Présentation du Projet</h3>
+            <p> 
+                L'objectif de notre projet est de concevoir un système de vidéogrammétrie embarqué capable de générer en temps réel un nuage de points 3D à partir d'un flux vidéo. Ce nuage et le flux associé seront affichés à distance via un serveur web, hébergé sur un ordinateur distant.
+                </p>
+                <p>
+                    Ce projet vise à proposer une alternative économique aux technologies comme le LiDAR, en utilisant des caméras standards et des algorithmes de traitement d’image avancés.
+                </p>
+                <p>
+                  La solution est conçue pour être embarquée sur une plateforme mobile (robot, drone ou véhicule) et permettre la transmission  en direct des données 3D sur l’interface web. Les données générées pourront ensuite être exportées au format <code>.obj</code> pour être utilisées dans des outils de modélisation 3D.
+                </p>
+        </div>
+    </div>
+
+    <div id="modalFonctionnement" class="modal" onclick="closeModal(event, 'modalFonctionnement')">
+        <div class="modal-content">
+            <span class="close" onclick="hide('modalFonctionnement')">&times;</span>
+            <h3>Comment ça marche ?</h3>
+                <p> 
+                    Le système repose sur la vidéogrammétrie, une technique de reconstruction 3D basée sur l’analyse de flux vidéo en temps réel. En utilisant des algorithmes de traitement d’image avancés, il devient possible de reconstituer dynamiquement une scène en trois dimensions à partir de simples vidéos.
+                </p>
+                <p>
+                    Les informations capturées par la caméra embarquée sont ensuite converties en nuage de points 3D et transmises en direct à un serveur web, offrant une visualisation immédiate et à distance.
+                </p>
+                <p>
+                    Cette approche permet une réduction significative des coûts tout en conservant des résultats exploitables pour la modélisation 3D et la navigation autonome.
+                </p>
+
+        </div>
+    </div>
+
+    <!-- JS pour gérer les fenêtres popup -->
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function hide(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function closeModal(event, id) {
+            if (event.target.className === 'modal') {
+                hide(id);
+            }
+        }
+
+        function sendCommand(direction) {
+        console.log("Direction:", direction); // endroit a modif pour controle voiture + dans app.py pour la suite
+        }
+
+
+    </script>
+
+</body>
+
+
