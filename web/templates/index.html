@@ -1,3 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Plan D - Visualisation 3D</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
 <body>
 
     <!-- Titre du site -->
@@ -15,7 +25,6 @@
             <img src="https://via.placeholder.com/800x400?text=Plan+3D" alt="Affichage du plan 3D">
         </section>
         
-          <div class="spacer"></div>
 
 
 
@@ -29,26 +38,45 @@
                 
                 <!-- Bloc Vidéo à gauche -->
                 <div class="flux-video">
-                <img src="{{ url_for('video') }}" alt="Flux vidéo">
+                <img src="/video" alt="Flux vidéo">
                 </div>
 
                 <!-- Joystick à droite -->
                 <div class="flux-controle">
                 <div class="joystick">
                     <div class="row">
-                    <button onclick="sendCommand('up')">⬆️</button>
+                    <button 
+                        onmousedown="sendCommand('up')" 
+                        onmouseup="sendCommand('stop')" 
+                        ontouchstart="sendCommand('up')" 
+                        ontouchend="sendCommand('stop')">
+                        ⬆️ </button>
                     </div>
                     <div class="row">
-                    <button onclick="sendCommand('left')">⬅️</button>
-                    <button onclick="sendCommand('right')">➡️</button>
+                    <button 
+                        onmousedown="sendCommand('left')" 
+                        onmouseup="sendCommand('stop')" 
+                        ontouchstart="sendCommand('left')" 
+                        ontouchend="sendCommand('stop')">
+                        ⬅️ </button>
+                     <button 
+                        onmousedown="sendCommand('right')" 
+                        onmouseup="sendCommand('stop')" 
+                        ontouchstart="sendCommand('right')" 
+                        ontouchend="sendCommand('stop')">
+                        ➡️ </button>
                     </div>
                     <div class="row">
-                    <button onclick="sendCommand('down')">⬇️</button>
+                     <button 
+                        onmousedown="sendCommand('down')" 
+                        onmouseup="sendCommand('stop')" 
+                        ontouchstart="sendCommand('down')" 
+                        ontouchend="sendCommand('stop')">
+                        ⬇️ </button>
                     </div>
                 </div>
                 <p>Joystick de contrôle du robot</p>
                 </div>
-
             </div>
         </section>
 
@@ -117,9 +145,20 @@
         }
 
         function sendCommand(direction) {
-        console.log("Direction:", direction); // endroit a modif pour controle voiture + dans app.py pour la suite
-        }
-
+        fetch('/move', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ direction: direction })
+        }).then(response => {
+            if (response.ok) {
+                console.log("Commande envoyée :", direction);
+            } else {
+                console.error("Erreur lors de l'envoi de la commande");
+            }
+        });
+    }
 
     </script>
 
