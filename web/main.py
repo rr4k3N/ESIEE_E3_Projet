@@ -8,15 +8,16 @@ import cv2
 
 def cam_thread(cam: Camera):
     while True:
-        global frame
-        img = cv2.imencode('.jpg', cam.capture_frame())[1].tobytes()
-        frame = (b'--frame\r\n'
-                 b'Content-Type: image/jpg\r\n\r\n' + img + b'\r\n')
+        global is_no_device, frame
+        img_buf, suc = cam.capture_frame()
+        img = cv2.imencode('.jpg', img_buf)[1].tobytes()
+        
+        is_no_device, frame = not suc, img
 
         sleep(0.03)
 
 
-global frame, speed
+global is_no_device, frame, speed
 app = Flask(__name__)
 
 cam = Camera(0)
@@ -31,7 +32,7 @@ thread = Thread(target=cam_thread, args=(cam,))
 thread.daemon = True
 thread.start()
 
-frame = cam._no_device_frame()
+is_no_device, frame = True, cam._no_device_frame()
 
 
 
@@ -42,13 +43,18 @@ def home():
 
 def gen():
     while True: 
-        yield frame
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpg\r\n\r\n' + frame + b'\r\n')
+
         sleep(0.03)
 
 @app.route("/video")
 def video():
     return Response(gen(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route("/frame")
+def frame():
+    return Response(frame, mimetype="image/jpg", status=200 if not is_no_device else 201)
 
 @app.route("/move", methods=["POST"])
 def move():

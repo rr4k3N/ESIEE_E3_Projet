@@ -90,14 +90,13 @@ class Camera:
                 self.logger.error('Lost connection to camera')
                 self.listen_for_cam()
             
-            return self._no_device_frame()
+            return self._no_device_frame(), False
         
         suc, frame = self.cam.read()
         if not suc: 
             self.logger.error('Lost connection to camera')
             if self.is_opened(): self.cam.release()
             self.listen_for_cam()
-            return self._no_device_frame()
+            return self._no_device_frame(), False
         
-        return frame
-
+        return frame, True
