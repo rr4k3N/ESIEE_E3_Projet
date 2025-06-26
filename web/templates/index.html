@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Plan D - Visualisation 3D</title>
+    <title>3D Mapper - Visualisation 3D</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -12,20 +12,12 @@
 
     <!-- Titre du site -->
     <header>
-        <h1>Plan D - Visualisation 3D</h1>
+        <h1>Plan 3D Mapper - Visualisation 3D</h1>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </header>
 
     <!-- Partie centrale avec contenu visuel -->
     <main class="container">
-                
-        <!-- Affichage du plan 3D -->
-        <section class="card">
-            <h2>Affichage du plan 3D</h2>
-            <img src="https://via.placeholder.com/800x400?text=Plan+3D" alt="Affichage du plan 3D">
-        </section>
-        
-
 
 
         <!-- Affichage du flux vidéo -->
@@ -82,12 +74,6 @@
 
     </main>
 
-    <!-- Tous les boutons : import/export/traitement + infos -->
-    <div class="button-bar">
-        <button>Importer</button>
-        <button>Exporter</button>
-        <button>Lancer traitement</button>
-    </div>
 
     <div class="footer-buttons">
         <button onclick="openModal('modalProjet')">Projet</button>
@@ -106,7 +92,7 @@
                     Ce projet vise à proposer une alternative économique aux technologies comme le LiDAR, en utilisant des caméras standards et des algorithmes de traitement d’image avancés.
                 </p>
                 <p>
-                  La solution est conçue pour être embarquée sur une plateforme mobile (robot, drone ou véhicule) et permettre la transmission  en direct des données 3D sur l’interface web. Les données générées pourront ensuite être exportées au format <code>.obj</code> pour être utilisées dans des outils de modélisation 3D.
+                  La solution est conçue pour être embarquée sur une plateforme mobile (robot, drone ou véhicule) et permettre la transmission  en direct des données 3D sur l'écran externe.
                 </p>
         </div>
     </div>
@@ -119,7 +105,7 @@
                     Le système repose sur la vidéogrammétrie, une technique de reconstruction 3D basée sur l’analyse de flux vidéo en temps réel. En utilisant des algorithmes de traitement d’image avancés, il devient possible de reconstituer dynamiquement une scène en trois dimensions à partir de simples vidéos.
                 </p>
                 <p>
-                    Les informations capturées par la caméra embarquée sont ensuite converties en nuage de points 3D et transmises en direct à un serveur web, offrant une visualisation immédiate et à distance.
+                    Les informations capturées par la caméra embarquée sont ensuite converties en nuage de points 3D et transmises en direct depuis un server web vers un ecran externe qui affiche le resultat 3D, offrant une visualisation immédiate et à distance.
                 </p>
                 <p>
                     Cette approche permet une réduction significative des coûts tout en conservant des résultats exploitables pour la modélisation 3D et la navigation autonome.
