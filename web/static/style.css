@@ -42,7 +42,7 @@ main.container {
     align-items: center;   
     max-height: none;
     min-height: 20px;
-    height: auto;
+    height: 700px;
 }
 
 /* Titre des blocs */
@@ -226,12 +226,13 @@ h2 {
      height: 40vh;
      font-size: 30px;
      
+     
     }
 
     .joystick button {
-     font-size: 1.2vw;
-     padding: 0.5vw 0.7vw;
-     margin: 0.5vw;
+     font-size: 1.8vw;
+     padding: 1vw 1.1vw;
+     margin: 1vw;
     }
 
     .joystick .row button {
@@ -247,10 +248,19 @@ h2 {
     font-weight: bold;
     margin-top: -10px;
     margin-bottom: 20px;  
-}
+    }
+
+
 
 }
 
+@media (max-width: 2000px) {
+
+    .card {
+    height: 600px;
+    }
+
+}
 @media (max-width: 1450px) {
  
  header {
@@ -277,6 +287,11 @@ h2 {
     .button-bar button{
     font-size: 15px;
     }
+
+    .card {
+    height: 600px;
+    }
+
 }
 
 
@@ -307,6 +322,11 @@ h2 {
     .button-bar button{
     font-size: 15px;
     }
+
+    .card {
+    height: 500px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -328,8 +348,8 @@ h2 {
   }
 
  .joystick button {
-   font-size: 2vw;
-   padding: 2vw 2.5vw;
+   font-size: 2.5vw;
+   padding: 2.5vw 3vw;
  }
 
 .joystick .row button {
@@ -352,7 +372,9 @@ h2 {
     font-size: 15px;    
     }
    
-    
+    .card {
+    height: 700px;
+}
     
 }
 
@@ -378,5 +400,78 @@ h2 {
     gap: 10px 15px; 
    }
     
+
+
+   .modal-content {
+        width: 95%;
+        padding: 20px;
+        font-size: 15px;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+    }
+
+    .modal-content .close {
+        font-size: 24px;
+        top: 5px;
+        right: 10px;
+    }
+
+    .card {
+    height: 700px;
+}
+
+}
+
+@media (max-width: 375px) {
+ 
+
+
+ .joystick button {
+   font-size: 4vw;
+   padding: 4vw 4.5vw;
+ }
+
+.joystick .row button {
+    margin: 0 35px;
+    }
+
+
+
+    .button-bar {
+    gap: 10px 15px; 
+   }
+    
+
+
+   .modal-content {
+        width: 95%;
+        padding: 20px;
+        font-size: 15px;
+    }
+
+    .modal-content h3 {
+        font-size: 18px;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+    }
+
+    .modal-content .close {
+        font-size: 24px;
+        top: 5px;
+        right: 10px;
+    }
+
+    .card {
+    height: 550px;
+}
+
 }
 
